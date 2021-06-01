@@ -1,0 +1,14 @@
+{% set title="Deleting" %}
+{% extends "base.html" %}
+
+
+
+{% block content %}
+<p>Deleting: <b>{{ room.name }}</b></p>
+<ul>
+
+	<li><a href="/rooms/remove/{{ room.id }}">Yes, delete</a></li>
+	<li><a href="/">No, Don't</a></li>
+	
+</ul>
+{% endblock content %}

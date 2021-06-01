@@ -1,0 +1,20 @@
+{% set title="Login - Eventplanner" %}
+{% extends "base.html" %}
+
+
+
+{% block content %}
+	<h3>{{ pageTitle }}</h3>
+	<form method=post>
+		{% for field in form %}
+			<p>{{ field.label if not field.flags.hidden }} {{ field }}</p>
+
+				{% for error in field.errors %}
+					<p>{{ error }}</p>
+				{% endfor %}
+
+
+		{% endfor %}
+		<input type=submit>
+	</form>
+{% endblock content %}

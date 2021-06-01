@@ -1,0 +1,13 @@
+{% set title="Deleting" %}
+{% extends "base.html" %}
+
+
+
+{% block content %}
+<p>Deleting: <b>{{ task.task }}</b></p>
+<ul>
+
+	<li><a href="/{{ task.id }}/annihilate">Yes, delete</a></li>
+	<li><a href="/">No, Don't</a></li>
+</ul>
+{% endblock content %}

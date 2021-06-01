@@ -1,0 +1,19 @@
+{% set title=pageTitle %}
+{% extends "base.html" %}
+
+
+
+{% block content %}
+	<h3>{{ pageTitle }}</h3>
+
+	{% if currentRoom() %}
+		<p>This task will be part of event <b>{{ currentRoom().name }}</b></p>
+	{% endif %}
+	<form method=post>
+		{% for field in form %}
+			<p>{{ field.label if not field.flags.hidden }} {{ field }}</p>
+		{% endfor %}
+		<input type=submit>
+	</form>
+	
+{% endblock content %}

@@ -1,0 +1,47 @@
+{% set title="Events - Event Planner" %}
+{% extends "base.html" %}
+
+
+
+{% block content %}
+	{% if currentUser() and not rooms and not currentRoom() %}
+		<p>No events here. Start by Adding or Joining an Event</p>
+	{% else %}
+		<h3>Your Events:</h3>
+	{% endif %}
+	{% if not rooms %}
+		<p>You don't own any events. You can create one.</p>
+	{% endif %}
+	
+	<ul>
+	{% for room in rooms %}
+		<li><b>{{ room.name }}</b>
+			- <a href="/joinroom/{{ room.id }}">Join</a>
+			- <a href="/rooms/delete/{{ room.id }}">Delete</a>
+		</li>
+	{% endfor %}
+	</ul>
+	{% if currentRoom() %}
+	<p>Current Event: <b>{{ currentRoom().name }}</b> - <a href="/eventview">View event</a> - <a href="/leaveroom">Leave view</a></p>
+	{% endif %}
+	<br>
+	<br>
+	<br>
+	<p>After you have created an event, you can ask others to join it.</p>
+	<form method=post>
+		{% for field in form %}
+			{{ field.label if not field.flags.hidden }} {{ field }}
+		{% endfor %}
+		<input type=submit>
+	</form>
+	
+	<br>
+	<p>Or you can join their events with their event name.</p>
+	
+	<form method=post>
+		<label>Join an Event: 
+		<input type=text name="joinroom" id="joinroom">
+		</label>
+		<input type=submit>
+	</form>
+{% endblock content %}

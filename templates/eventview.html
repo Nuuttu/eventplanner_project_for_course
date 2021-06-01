@@ -1,0 +1,62 @@
+{% set title="Event Planner - Eventview" %}
+{% extends "base.html" %}
+
+
+
+{% block content %}
+	{% if currentRoom() %}
+		<p>You are viewing event: <b>{{ currentRoom().name }}</b> - <a href="/leaveroom">Leave view</a></p>
+	{% endif %}
+
+	{% if not tasks %}
+		<p>No tasks here. Start by <a href="/task/add">Adding a task</a></p>
+	{% else %}
+		<h3><u>{{ currentRoom().name }}</u> event's tasks:</h3>
+	{% endif %}
+	
+	{% if tasks %}
+	<table>
+		<tr>
+			<th>Task</th>
+			<th>for Event</th>
+			<th>Created by</th>
+			<th>created at</th>
+		</tr>
+		{% for task in tasks %}
+			<tr>
+				<td>{{ task.task }}</td>
+				<td>{{ task.room.name }}</td>
+				<td>{{ task.user.username }}</td>
+				<td>{{ task.c_date.strftime('%Y-%m-%d') }}</td>
+				<td>{% if currentUser().id == task.userId %}
+					- <a href="/task/{{ task.id }}/edit">Edit</a>
+				   - <a href="/task/{{ task.id }}/delete">Delete</a>
+			   {% elif currentUser().id == task.userId or currentUser().id == currentRoom().owner %}
+					- <a href="/task/{{ task.id }}/delete">Delete</a>
+			   {% endif %}</td>
+			</tr>
+		{% endfor %}
+	</table>
+	{% endif %}
+	{% if currentUser() %}
+	<p><a href="/task/add">Add Task</a></p>
+	{% endif %}
+	<br>
+	<p>Comments for this event:</p>
+	{% for comment in comments %}
+		<p><b>{{ comment.owner.username }}</b>: {{ comment.text }}
+			{% if currentUser().id == comment.owner.id or currentUser().id == currentRoom().owner %}
+			 - <a href="/comment/delete/{{ comment.id }}">Delete</a>
+			{% endif %}
+			</p>
+	{% endfor %}
+	<br>
+	<form method=post>
+		<p>Add comment:</p>
+		{% for field in form %}
+			<p>{{ field.label if not field.flags.hidden }} {{ field }}</p>
+		{% endfor %}
+		<input type=submit>
+	</form>
+
+{% endblock content %}
