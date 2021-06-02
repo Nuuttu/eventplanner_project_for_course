@@ -3,6 +3,8 @@ Final Project for course https://terokarvinen.com/2021/python-web-service-from-i
 
 Use this app to Create and Manage events.
 
+link to the site http://165.22.69.251/
+
 Registration key when registering is "cube"
 
 ![alt text](./Screenshot.png)
