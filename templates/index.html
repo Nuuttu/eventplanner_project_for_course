@@ -16,6 +16,8 @@
 	{% if not currentUser() %}
 		<p>Event planner! <b>Create</b>, <b>Plan</b> and <b>Discuss</b> Events here!</p>
 		<p>Hello! Please login or register to use Event Planner.</p>
+		<br>
+		<img src="/static/ScreenshotHome.png" alt="homepicture" width="1000 height="600">
 	{% endif %}
 	
 	{% if currentUser() and tasks %}
